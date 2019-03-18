@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<head>
+    <title>thegrazingflamingo</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block meta %}{% endblock %}
+</head>
+
+<body>
+    <header>
+        <div>
+            <nav>
+            </nav>
+        </div>
+    </header>
+    <div>
+    {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>
