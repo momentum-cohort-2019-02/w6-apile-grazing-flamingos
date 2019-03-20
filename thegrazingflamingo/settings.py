@@ -98,7 +98,7 @@ DATABASES = {
         'NAME': 'thegrazingflamingo',
         'USER': 'admin',
         'HOST': '127.0.0.1',
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
 
@@ -148,6 +148,9 @@ INTERNAL_IPS = [
 
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = '/'
+
+# Custom user config.
+AUTH_USER_MODEL = 'core.User'
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
