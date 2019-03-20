@@ -17,7 +17,7 @@ class User(AbstractUser):
     voted = models.ForeignKey('Vote', null=True, blank=True, on_delete = models.SET_NULL)
     email = models.CharField(max_length=50, null=False, blank=False)
     gender_pronouns = models.CharField(max_length=15, null=True, blank=True)
-    date_created = models.DateTimeField(auto_now_add=True, blank=True)
+    date_created = models.DateField(auto_now_add=True, blank=True)
     about = models.TextField(max_length=1000, null=True, blank=True)
 
 
