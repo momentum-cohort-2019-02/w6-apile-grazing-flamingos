@@ -47,7 +47,7 @@ class UserPost(models.Model):
         slug = base_slug
         n = 0
 
-        while User_Post.object.filter(slug=slug).count():
+        while UserPost.object.filter(slug=slug).count():
             n += 1
             slug = base_slug + '-' + str(n)
         
