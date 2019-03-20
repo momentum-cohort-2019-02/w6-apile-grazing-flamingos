@@ -59,6 +59,7 @@ class UserPost(models.Model):
 
 class Vote(models.Model):
     '''Model represents votes on a post'''
+    user = models.ForeignKey(user, )
     
     pass
     
@@ -67,4 +68,3 @@ class Comment(models.Model):
 
 class Topic(models.Model):
     pass
-
