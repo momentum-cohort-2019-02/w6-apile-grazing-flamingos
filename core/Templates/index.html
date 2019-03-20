@@ -1,2 +1,21 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
+{% block content %}
+<ul>
+    <li>Votes</li>
+    {% if User_Post %}
+    {% for post in posts %}
+    <li><a href="{{ user_post.post_url.get_absolute_url }}">{{ post.title }}</a></li>
+    {% if post.user %}
+    <li> {{ user.uploaded_profile_picture }} </li>
+    <li> by <a href="">{{ post.user }}</a></li>
+    {% endif %}
+    {% if post.source_name %}
+    <li>{{ post.source_name }}</li>
+    <li>
+        <p>{{ post.body|truncatewords:50 }}</p>
+    </li>
+    <li>{{ comments.num_comments }} comments</li>
+    {% endfor %}
+</ul>
+{% endblock %}

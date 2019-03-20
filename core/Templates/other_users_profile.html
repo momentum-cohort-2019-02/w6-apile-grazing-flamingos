@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+    <ul>
+    {% if request.user.uploaded_profile_picture %}
+    <li>profile picture: {{ uploaded_profile_picture }}</li>
+    {% endif %}
+    <li>{{ user.username }}</li>
+    <li>user: {{ user.username }}</li>
+    <li>member since: {{ user.date_created }}</li>
+    {% if request.user.gender_pronouns %}
+    <li>gender pronouns: {{ user.gender_pronous }}</li>
+    {% endif %}
+    {% if request.user.about %}
+    <li>about: {{ user.about }}</li>
+    {% endif %}
+    {% if request.user.post %}
+    <li>email: {{ user.email }}</li>
+    {% endif %}
+    {% if request.user.post %}
+    <li><a href="{% url 'user.post' %}"{{ user.post }} count: {{user.post.count}}</a></li>
+    {% endif %}
+    {% if request.user.comments %} 
+    <li><a href="{% url 'user.comments' %}"{{ user.comments }} count: {{user.comments.count}}</a></li>
+    {% endif %}
+    {% if request.user.favorites %} 
+    <li><a href="{% url 'user.favorites' %}"{{ user.favorites }}</a></li>
+    {% endif %}
+    {% if request.user.voted %} 
+    <li><a href="{% url 'user.voted' %}"{{ user.voted }} count: {{user.voted.counted}}</a></li>
+    {% endif %}
+    {% if request.user.topics %} 
+    <li>topics: {{ user.topics }}</li>
+    </ul>
+{% endblock %}
