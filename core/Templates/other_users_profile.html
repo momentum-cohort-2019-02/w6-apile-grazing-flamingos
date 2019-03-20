@@ -4,7 +4,9 @@
 
     <ul>
     {% if request.user.uploaded_profile_picture %}
-    <li>profile picture: {{ uploaded_profile_picture }}</li>
+        <li>profile picture: {{ uploaded_profile_picture }}</li>
+    {% elif %}
+        <li>profile picture: {{ user.image_placeholder }}</li>
     {% endif %}
     <li>{{ user.username }}</li>
     <li>user: {{ user.username }}</li>
