@@ -2,7 +2,6 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
-from datetime import datetime
 
 # Create your models here.
 
@@ -59,10 +58,13 @@ class UserPost(models.Model):
         super().save(*args, **kwargs)
 
 class Vote(models.Model):
+    '''Model represents votes on a post'''
+    
     pass
     
 class Comment(models.Model):
-    user = models.ManyToManyField(User)
+    pass
 
 class Topic(models.Model):
     pass
+
