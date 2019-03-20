@@ -13,14 +13,38 @@
 
 <body>
     <header>
-        <div>
-            <nav>
-            </nav>
-        </div>
+        <nav>
+            <ul>
+                <li><img src="{% static " logo.jpg" %}" alt="An artistic rendering of a flamingo."></li>
+                <li><a href="{% url 'index' %}" title="Home">
+                        <h1>thegrazingflamingo</h1>
+                    </a></li>
+                <li><a href="{% url 'welcome' %}" title="Welcome">Welcome</a></li>
+                <li><a href="#0" title="Topics">Topics</a></li>
+                <li><a href="#0" title="New">New</a></li>
+                <li><a href="#0" title="Comments">Comments</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="#0" title="Profile page">{{ user.username }}</a></li>
+                <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'auth_login' %}">Register | Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
     </header>
     <div>
-    {% block content %}{% endblock %}
+        <nav>
+        </nav>
     </div>
+    </header>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        <li><a href="#0" title="Comments">Code of Conduct</a></li>
+        <li><a href="#0" title="Comments">FAQ</a></li>
+        <li><a href="#0" title="Comments">Contact</a></li>
+    </footer>
 </body>
 
 </html>

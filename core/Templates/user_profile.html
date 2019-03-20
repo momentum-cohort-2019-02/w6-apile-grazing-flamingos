@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+        {% if request.user.is_authenticated %} 
+        <ul>
+        <li>profile picture: {{ uploaded_profile_picture }}</li>
+        <li>{{ user.username }}</li>
+        <li>user: {{ user.username }}</li>
+        <li>member since: {{ user.date_created }}</li>
+        <li>gender pronouns: {{ user.gender_pronous }}</li>
+        <li>about: {{ user.about }}</li>
+        <li>email: {{ user.email }}</li>
+        <li>{{ user.post }}</li>
+        <li>{{ user.comment }}</li>
+        <li>{{ user.favorites }}</li>
+        <li>{{ user.voted }}</li>
+        <li>topics: {{ user.topics }}</li>
+        </ul>
+    <button type="submit">Upload</button>
+    </form>
+
+<p><a href="{% url 'home' %}">Return to home</a></p>
+{% endblock %}
