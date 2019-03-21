@@ -1,0 +1,10 @@
+.parent {
+    float: left;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: auto;
+    width: 100%;
+}
+
+

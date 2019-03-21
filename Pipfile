@@ -13,5 +13,6 @@ django-registration-redux = "*"
 django-debug-toolbar = "*"
 pillow = "*"
 
+
 [requires]
 python_version = "3.7"

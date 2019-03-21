@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 from datetime import datetime
-from PIL import Image
+# from PIL import Image
 
 # Create your models here.
 
@@ -25,16 +25,16 @@ class User(AbstractUser):
         '''Creates a unique slug for every user'''
         if self.slug:
             return
-        base_slug = slugify(self.title)
+        base_slug = slugify(self.username)
 
-        slug = base_slug
-        n = 0
+        # slug = base_slug
+        # n = 0
 
-        while User.object.filter(slug=slug).count():
-            n += 1
-            slug = base_slug + '-' + str(n)
+        # while User.object.filter(slug=slug).count():
+        #     n += 1
+        #     slug = base_slug + '-' + str(n)
         
-        self.slug = slug
+        # self.slug = slug
 
     def save(self, *args, **kwargs):
         '''Hides slug field in admin- saves slug to use in url'''
@@ -66,16 +66,16 @@ class UserPost(models.Model):
         '''Creates a unique slug for every post'''
         if self.slug:
             return
-        base_slug = slugify(self.title)
+        # base_slug = slugify(self.title)
 
-        slug = base_slug
-        n = 0
+        # slug = base_slug
+        # n = 0
 
-        while UserPost.object.filter(slug=slug).count():
-            n += 1
-            slug = base_slug + '-' + str(n)
+        # while UserPost.object.filter(slug=slug).count():
+        #     n += 1
+        #     slug = base_slug + '-' + str(n)
         
-        self.slug = slug
+        # self.slug = slug
 
     def save(self, *args, **kwargs):
         '''Hides slug field in admin- saves slug to use in url'''
@@ -93,23 +93,23 @@ class Comment(models.Model):
         return self.comment  
 
 class Topic(models.Model):
-    slug = models.SlugField()
-    name = models.CharField(max_length=20)
+    slug = models.SlugField(default="")
+    name = models.CharField(max_length=20, default="")
 
     def set_slug(self):
         '''Creates a unique slug for every topic'''
         if self.slug:
             return
-        base_slug = slugify(self.title)
+        # base_slug = slugify(self.name)
 
-        slug = base_slug
-        n = 0
+        # slug = base_slug
+        # n = 0
 
-        while Topic.object.filter(slug=slug).count():
-            n += 1
-            slug = base_slug + '-' + str(n)
+        # while Topic.object.filter(slug=slug).count():
+        #     n += 1
+        #     slug = base_slug + '-' + str(n)
         
-        self.slug = slug
+        # self.slug = slug
 
     def save(self, *args, **kwargs):
         '''Hides slug field in admin- saves slug to use in url'''

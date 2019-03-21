@@ -12,22 +12,23 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><img src="{% static " logo.jpg" %}" alt="An artistic rendering of a flamingo."></li>
+{% comment %} fixed needs to be added to class once we add content {% endcomment %}
+    <header class="parent bg-light-green w-100 ph3 ph4-m ph5-l bb b--pink bw1 mb6">
+        <nav class="f6 fw6 tracked">
+            <ul class="flex items-end mt0 mb2 list pl0">
+                {% comment %} <li><img src="{% static " logo.png" %}" alt="An artistic rendering of a flamingo."></li> {% endcomment %}
                 <li><a href="{% url 'index' %}" title="Home">
-                        <h1>thegrazingflamingo</h1>
+                        <h1 class="mb0 pink dib w-15 mr3 link hover-white">thegrazingflamingo</h1>
                     </a></li>
-                <li><a href="{% url 'welcome' %}" title="Welcome">Welcome</a></li>
-                <li><a href="#0" title="Topics">Topics</a></li>
-                <li><a href="#0" title="New">New</a></li>
-                <li><a href="#0" title="Comments">Comments</a></li>
+                {% comment %} <li class="link dim white dib mr3>"<a href="{% url 'welcome' %}" title="Welcome">Welcome</a></li> {% endcomment %}
+                <li><a class="white link hover-pink dib mr3" href="#0" title="Topics">Topics</a></li>
+                <li ><a class="white link hover-pink dib mr3"  href="#0" title="New">New</a></li>
+                <li><a class="white link hover-pink dib mr3"  href="#0" title="Comments">Comments</a></li>
                 {% if request.user.is_authenticated %}
-                <li><a href="#0" title="Profile page">{{ user.username }}</a></li>
-                <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                <li><a class="white link hover-pink dib mr3" href="#0" title="Profile page">{{ user.username }}</a> <span class="white">|</span></li>
+                <li><a class="white link hover-pink dib mr3" href="{% url 'auth_logout' %}">Logout</a></li>
                 {% else %}
-                <li><a href="{% url 'auth_login' %}">Register | Login</a></li>
+                <li><a class="white link hover-pink dib mr3"  href="{% url 'auth_login' %}">Register | Login</a></li>
                 {% endif %}
             </ul>
         </nav>
