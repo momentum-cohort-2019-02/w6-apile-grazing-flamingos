@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import django_heroku
 
 # We will need to uncomment the import heroku line when we are ready to set it up. The last line in this document will also need to be uncommented.
-# import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +31,9 @@ SECRET_KEY = 'en8(k=kr1p0z)@k8$5px^$crcucavut$)+^4vz5i20_d7x=+si'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '0.0.0.0', 'localhost', 'tranquil-cove-23945.herokuapp.com'
+]
 
 
 # Application definition
@@ -139,6 +141,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 INTERNAL_IPS = [
     '127.0.0.1'
@@ -156,4 +159,4 @@ AUTH_USER_MODEL = 'core.User'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Activate Django-Heroku - must be last line. Sets all the correct settings | "Local" returns dictionary of all local variables. 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
