@@ -12,6 +12,8 @@ psycopg2 = "*"
 django-registration-redux = "*"
 django-debug-toolbar = "*"
 pillow = "*"
+django-heroku = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"

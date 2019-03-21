@@ -4,9 +4,9 @@
 {% block content %}
 <ul>
     <li>Votes</li>
-    {% for post in posts %}
+    {% for UserPost in object_list %}
     {% if UserPost %}
-        <li><a href="{{ userpost.post_url }}">{{ post.title }}</a></li>
+        <li><a href="{{ UserPost.post_url }}">{{ UserPost.title }}</a></li>
         <li> {{ user.profile_picture }} </li>
         <li> by <a href="">{{ post.user }}</a></li>
     {% elif post.source_name %}

@@ -3,7 +3,8 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 from datetime import datetime
-from PIL import Image
+
+# from PIL import Image
 
 # Create your models here.
 
@@ -11,11 +12,10 @@ from PIL import Image
 
 class User(AbstractUser):
     '''Model represents the user's post'''
-    username = models.CharField(max_length=15, unique=True, null=False, blank=False)
-    # Can a model have a relationship to a form? 
+    username = models.CharField(max_length=50, unique=True, null=False, blank=False)
     profile_picture = models.ImageField(upload_to='profile_pictures', blank=True)
     slug = models.SlugField()
-    voted = models.ForeignKey('Vote', null=True, blank=True, on_delete = models.SET_NULL)
+    voted = models.ForeignKey(to='Vote', null=True, blank=True, on_delete = models.SET_NULL, related_name='user')
     email = models.CharField(max_length=50, null=False, blank=False)
     gender_pronouns = models.CharField(max_length=20, null=True, blank=True)
     date_created = models.DateField(auto_now_add=True, blank=True)
@@ -25,16 +25,6 @@ class User(AbstractUser):
         '''Creates a unique slug for every user'''
         if self.slug:
             return
-        base_slug = slugify(self.title)
-
-        slug = base_slug
-        n = 0
-
-        while User.object.filter(slug=slug).count():
-            n += 1
-            slug = base_slug + '-' + str(n)
-        
-        self.slug = slug
 
     def save(self, *args, **kwargs):
         '''Hides slug field in admin- saves slug to use in url'''
@@ -49,13 +39,13 @@ class UserPost(models.Model):
     '''Model represents the user's posts'''
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, help_text='What is your post called?', null=False)
-    source_name = models.URLField(help_text='Please enter the base domain of your link, i.e., "cnn.com" or "www.google.com."',null=True, blank=True)
+    source_name = models.URLField(help_text='Please enter the base domain of your link, i.e., "cnn.com" or "www.google.com."', null=True, blank=True)
     post_url = models.URLField(null=True, blank=True)
     time_posted = models.DateTimeField(auto_now_add=True, blank=True)
     body = models.TextField(max_length=1000, null=True, blank=True)
     topic = models.ManyToManyField(to='Topic', related_name='posts')
     slug = models.SlugField()
-    votes = models.ForeignKey(to='Vote', null=True, blank=True, on_delete = models.SET_NULL)
+    votes = models.ForeignKey(to='Vote', null=True, blank=True, on_delete = models.SET_NULL, related_name='post')
     comments = models.ForeignKey(to='Comment', null=True, blank=True, on_delete = models.SET_NULL)
 
     # Can we sort via a ForeginKeyField?
@@ -71,7 +61,7 @@ class UserPost(models.Model):
         slug = base_slug
         n = 0
 
-        while UserPost.object.filter(slug=slug).count():
+        while UserPost.objects.filter(slug=slug).count():
             n += 1
             slug = base_slug + '-' + str(n)
         
@@ -93,23 +83,13 @@ class Comment(models.Model):
         return self.comment  
 
 class Topic(models.Model):
-    slug = models.SlugField()
-    name = models.CharField(max_length=20)
+    slug = models.SlugField(default="")
+    name = models.CharField(max_length=20, default="")
 
     def set_slug(self):
         '''Creates a unique slug for every topic'''
         if self.slug:
             return
-        base_slug = slugify(self.title)
-
-        slug = base_slug
-        n = 0
-
-        while Topic.object.filter(slug=slug).count():
-            n += 1
-            slug = base_slug + '-' + str(n)
-        
-        self.slug = slug
 
     def save(self, *args, **kwargs):
         '''Hides slug field in admin- saves slug to use in url'''
@@ -121,4 +101,9 @@ class Topic(models.Model):
     
 
 class Vote(models.Model):
-    pass
+    vote = models.IntegerField(default=0)
+    # user
+    # post
+
+    def __str__(self):
+        return self.vote
