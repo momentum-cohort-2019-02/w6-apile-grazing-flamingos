@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from core.models import User, UserPost
+# from django.contrib.auth.models import User
 
 class UserForm(ModelForm):
     """
@@ -7,7 +8,7 @@ class UserForm(ModelForm):
     """
     class Meta:
         model = User
-        fields = ['username', 'email', 'gender_pronouns', 'about',]
+        fields = ['email', 'gender_pronouns', 'about',]
 
 class PostForm(ModelForm):
     '''User post form based on our UserPost model. Ask'''

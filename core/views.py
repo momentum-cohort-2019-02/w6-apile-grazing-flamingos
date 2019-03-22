@@ -21,11 +21,11 @@ class HomePageView(generic.ListView):
 class NewPostView(CreateView, LoginRequiredMixin):
     '''    '''
     model = UserPost
-    fields = ['user', 'title', 'source_name', 'post_url', 'body', 'topic']
+    fields = ['title', 'source_name', 'post_url', 'body', 'topic']
     template_name = 'user_post.html'
 
     def form_valid(self, form):
-        form.instance.created_by = self.request.user
+        form.instance.created_by = self.request.username
         return super().form_valid(form)
 
 class PostDetailView(generic.DetailView):
