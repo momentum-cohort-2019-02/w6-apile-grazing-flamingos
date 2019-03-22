@@ -35,13 +35,13 @@ class PostDetailView(generic.DetailView):
 class OtherUserProfileView(generic.DetailView):
     '''Detail view for user's profiles'''
     model = User
-    slug_field = 'User.username'
+    # slug_field = 'User.username'
 
 class UserProfileView(generic.FormView, LoginRequiredMixin):
     '''Allows a user to view and edit their own profile'''
     model = User
     template_name = 'user_profile.html'
-    slug_field = 'User.username'
+    # slug_field = 'User.username'
 
 class WelcomeView(TemplateView):
     template_name = 'welcome.html'

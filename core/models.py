@@ -33,6 +33,10 @@ class User(AbstractUser):
         self.set_slug()
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        '''Returns the url to access a particular author instance.'''
+        return reverse('user-profile', args=[str(self.slug)])
+
     def __str__(self):
         return self.username
     
