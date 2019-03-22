@@ -12,23 +12,26 @@
 </head>
 
 <body>
-{% comment %} fixed needs to be added to class once we add content {% endcomment %}
-    <header class="parent bg-light-green w-100 ph3 ph4-m ph5-l bb b--pink bw1 mb6">
+    {% comment %} fixed needs to be added to class once we add content {% endcomment %}
+    <header class="parent bg-light-green w-100 ph3 ph4-m ph5-l bb b--pink bw1 mb3">
         <nav class="f6 fw6 tracked">
             <ul class="flex items-end mt0 mb2 list pl0">
-                {% comment %} <li><img src="{% static " logo.png" %}" alt="An artistic rendering of a flamingo."></li> {% endcomment %}
+                {% comment %} <li><img src="{% static " logo.png" %}" alt="An artistic rendering of a flamingo."></li>
+                {% endcomment %}
                 <li><a href="{% url 'index' %}" title="Home">
                         <h1 class="mb0 pink dib w-15 mr3 link hover-white">thegrazingflamingo</h1>
                     </a></li>
-                {% comment %} <li class="link dim white dib mr3>"<a href="{% url 'welcome' %}" title="Welcome">Welcome</a></li> {% endcomment %}
+                <li><a class="white link hover-pink dib mr3" href="{% url 'welcome' %}" title="Welcome">Welcome</a></li>
                 <li><a class="white link hover-pink dib mr3" href="#0" title="Topics">Topics</a></li>
-                <li ><a class="white link hover-pink dib mr3"  href="#0" title="New">New</a></li>
-                <li><a class="white link hover-pink dib mr3"  href="#0" title="Comments">Comments</a></li>
+                <li><a class="white link hover-pink dib mr3" href="#0" title="New">New</a></li>
+                <li><a class="white link hover-pink dib mr3" href="#0" title="Comments">Comments</a></li>
                 {% if request.user.is_authenticated %}
-                <li><a class="white link hover-pink dib mr3" href="#0" title="Profile page">{{ user.username }}</a> <span class="white">|</span></li>
+                <li><a class="white link hover-pink dib mr3" href="{% url 'post_new' %}">Post<a></li>
+                <li><a class="white link hover-pink dib mr3" href="#0" title="Profile page">{{ user.username }}</a>
+                    <span class="white">|</span></li>
                 <li><a class="white link hover-pink dib mr3" href="{% url 'auth_logout' %}">Logout</a></li>
                 {% else %}
-                <li><a class="white link hover-pink dib mr3"  href="{% url 'auth_login' %}">Register | Login</a></li>
+                <li><a class="white link hover-pink dib mr3" href="{% url 'auth_login' %}">Register | Login</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -41,10 +44,14 @@
     <div>
         {% block content %}{% endblock %}
     </div>
-    <footer>
-        <li><a href="#0" title="Comments">Code of Conduct</a></li>
-        <li><a href="#0" title="Comments">FAQ</a></li>
-        <li><a href="#0" title="Comments">Contact</a></li>
+    <footer class="bg-light-green bt b--pink bw w-100 pa3 mt3">
+        <div class="f6 fw6 tracked">
+            <ul class="flex justify-center list pl0">
+                <li><a class="white link hover-pink dib mr3" href="{% url 'codeofconduct' %}" title="Comments">Code of Conduct</a></li>
+                <li><a class="white link hover-pink dib mr3" href="#0" title="Comments">FAQ</a></li>
+                <li><a class="white link hover-pink dib mr3" href="#0" title="Comments">Contact</a></li>
+            </ul>
+        </div>
     </footer>
 </body>
 
