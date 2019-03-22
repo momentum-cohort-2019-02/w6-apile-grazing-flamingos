@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.files import File
 from django.db import migrations
 from django.utils.text import slugify
-from django.db.models import Count, IntegerField
+# from django.db.models import Count, IntegerField
 
 def get_apile_csv(apps, schema_editor):
     """Read CSV file with user and post data and insert them into DB"""
@@ -14,7 +14,7 @@ def get_apile_csv(apps, schema_editor):
     Topic = apps.get_model('core', 'Topic')
     Vote = apps.get_model('core', 'Vote')
     datapath = os.path.join(settings.BASE_DIR, 'initial_data')
-    datafile = os.path.join(datapath, 'ApileData2.csv')
+    datafile = os.path.join(datapath, 'ApileData3.csv')
 
     with open(datafile) as file:
         reader = csv.DictReader(file)
@@ -25,6 +25,8 @@ def get_apile_csv(apps, schema_editor):
 
             user, _ = User.objects.get_or_create(
                 username=row['name'],
+                gender_pronouns=row['gender_pronouns'],
+                email=row['email'],
             )
             user.slug = slugify(user.username)[:49]
             user.save()
@@ -39,19 +41,17 @@ def get_apile_csv(apps, schema_editor):
 
             # Do we need to use annotation here? How will this work with new votes?
             # https://docs.djangoproject.com/en/2.1/ref/models/database-functions/#cast   ?????
-            vote = Vote.objects.get(
+            vote, _ = Vote.objects.get_or_create(
                 vote=row['votes'],
             )
             vote.save()
 
-            comment = Comment.objects.get(
+            comment, _ = Comment.objects.get_or_create(
                 comment=row['comments'],
             )
 
-            UserPost = UserPost(
+            userpost = UserPost(
                 user=user,
-                gender_pronoun=row['gender_pronoun'],
-                email=row['email'],
                 title=row['title'],
                 post_url=row['post_url'],
                 votes=vote,
@@ -60,6 +60,9 @@ def get_apile_csv(apps, schema_editor):
             userpost.slug = slugify(userpost.title)[:49]
             userpost.save()
             userpost.topic.add(topic)
+            user.userpost_set.add(userpost)
+            topic.posts.add(userpost)
+            vote.post.add(userpost)
 
 class Migration(migrations.Migration):
 
@@ -70,4 +73,3 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(get_apile_csv),
     ]
-

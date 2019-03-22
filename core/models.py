@@ -20,7 +20,8 @@ class User(AbstractUser):
     gender_pronouns = models.CharField(max_length=20, null=True, blank=True)
     date_created = models.DateField(auto_now_add=True, blank=True)
     about = models.TextField(max_length=1000, null=True, blank=True)
-
+    commented = models.ForeignKey(to='Comment', null=True, blank=True, on_delete=models.CASCADE, related_name='writer')
+    
     def set_slug(self):
         '''Creates a unique slug for every user'''
         if self.slug:
