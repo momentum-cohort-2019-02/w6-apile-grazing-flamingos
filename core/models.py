@@ -3,8 +3,6 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 from datetime import datetime
-from django.urls import reverse
-
 
 # from PIL import Image
 
@@ -22,7 +20,8 @@ class User(AbstractUser):
     gender_pronouns = models.CharField(max_length=20, null=True, blank=True)
     date_created = models.DateField(auto_now_add=True, blank=True)
     about = models.TextField(max_length=1000, null=True, blank=True)
-
+    commented = models.ForeignKey(to='Comment', null=True, blank=True, on_delete=models.CASCADE, related_name='writer')
+    
     def set_slug(self):
         '''Creates a unique slug for every user'''
         if self.slug:
@@ -32,10 +31,6 @@ class User(AbstractUser):
         '''Hides slug field in admin- saves slug to use in url'''
         self.set_slug()
         super().save(*args, **kwargs)
-
-    def get_absolute_url(self):
-        '''Returns the url to access a particular author instance.'''
-        return reverse('user-profile', args=[str(self.slug)])
 
     def __str__(self):
         return self.username
@@ -72,10 +67,6 @@ class UserPost(models.Model):
             slug = base_slug + '-' + str(n)
         
         self.slug = slug
-
-    def get_absolute_url(self):
-        '''Returns the url to access a particular author instance.'''
-        return reverse('index')
 
     def save(self, *args, **kwargs):
         '''Hides slug field in admin- saves slug to use in url'''
