@@ -3,8 +3,6 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 from datetime import datetime
-from django.urls import reverse
-
 
 # from PIL import Image
 
@@ -32,10 +30,6 @@ class User(AbstractUser):
         '''Hides slug field in admin- saves slug to use in url'''
         self.set_slug()
         super().save(*args, **kwargs)
-
-    def get_absolute_url(self):
-        '''Returns the url to access a particular author instance.'''
-        return reverse('user-profile', args=[str(self.slug)])
 
     def __str__(self):
         return self.username
@@ -72,10 +66,6 @@ class UserPost(models.Model):
             slug = base_slug + '-' + str(n)
         
         self.slug = slug
-
-    def get_absolute_url(self):
-        '''Returns the url to access a particular author instance.'''
-        return reverse('index')
 
     def save(self, *args, **kwargs):
         '''Hides slug field in admin- saves slug to use in url'''
