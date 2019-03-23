@@ -77,6 +77,9 @@ class UserPost(models.Model):
         self.set_slug()
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse("post_detail", args=[str(self.slug)])
+    
     def __str__(self):
         return self.post_url
     

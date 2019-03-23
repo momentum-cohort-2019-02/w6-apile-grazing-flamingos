@@ -10,6 +10,5 @@ urlpatterns = [
     path('<slug:slug>/', views.view_profile, name='view_profile'),
     path('profile/edit', views.edit_profile, name='edit_profile'),
     path('codeofconduct/', views.CCView.as_view(), name='codeofconduct'),
-
+    path('post_detail/<slug:slug>', views.post_detail_view, name ='post_detail')
 ]
-

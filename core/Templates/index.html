@@ -11,7 +11,7 @@
         <li> {{ user.profile_picture }} </li>
         <li> by <a href="{{ UserPost.user }}">{{ UserPost.user }}</a></li>
         <li><p>{{ UserPost.body|truncatewords:50 }}</p> </li>
-        <li class="mb2">{{ comments.num_comments }} comments</li>
+        <li class="mb2"><a href='{{ UserPost.get_absolute_url }}'>{{ comments.num_comments }} comments</a></li>
         {% endif %}
         {% if UserPost.source_name %}
         <li>({{ UserPost.source_name }})</li>
