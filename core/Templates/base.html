@@ -26,12 +26,13 @@
                 <li><a class="white link hover-pink dib mr3" href="#0" title="New">New</a></li>
                 <li><a class="white link hover-pink dib mr3" href="#0" title="Comments">Comments</a></li>
                 {% if request.user.is_authenticated %}
-                <li><a class="white link hover-pink dib mr3" href="{% url 'post_new' %}">Post<a></li>
-                <li><a class="white link hover-pink dib mr3" href="#0" title="Profile page">{{ user.username }}</a>
+                {% comment %} <li><a class="white link hover-pink dib mr3" href="{% url 'post_new' %}">Post<a></li> {% endcomment %}
+                <li><a class="white link hover-pink dib mr3" href="{% url 'edit_profile' %}" method="POST"
+                        title="Profile page">{{ request.user.username }}</a>
                     <span class="white">|</span></li>
                 <li><a class="white link hover-pink dib mr3" href="{% url 'auth_logout' %}">Logout</a></li>
                 {% else %}
-                <li><a class="white link hover-pink dib mr3" href="{% url 'auth_login' %}">Register | Login</a></li>
+                <li><a class="white link hover-pink dib" href="{% url 'auth_login' %}">Register | Login</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -44,10 +45,11 @@
     <div>
         {% block content %}{% endblock %}
     </div>
-    <footer class="bg-light-green bt b--pink bw w-100 pa3 mt3">
+    <footer class="bg-light-green bt b--pink bw1 w-100 pa3 mt3">
         <div class="f6 fw6 tracked">
             <ul class="flex justify-center list pl0">
-                <li><a class="white link hover-pink dib mr3" href="{% url 'codeofconduct' %}" title="Comments">Code of Conduct</a></li>
+                <li><a class="white link hover-pink dib mr3" href="{% url 'codeofconduct' %}" title="Comments">Code of
+                        Conduct</a></li>
                 <li><a class="white link hover-pink dib mr3" href="#0" title="Comments">FAQ</a></li>
                 <li><a class="white link hover-pink dib mr3" href="#0" title="Comments">Contact</a></li>
             </ul>
