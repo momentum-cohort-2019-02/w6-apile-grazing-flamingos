@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from django.views import generic
 from core.models import User, UserPost
@@ -43,7 +43,7 @@ class FAQView(TemplateView):
 
 def view_profile(request, slug):
     if slug:
-        user = User.objects.all()
+        user = User.objects.filter(user__exact=user)
     else:
         user = request.user
     context = {
@@ -63,6 +63,12 @@ def edit_profile(request):
         args = {'form': form}
         return render(request, 'user_view.html', args)
 
+def post_detail_view(request, slug):
+    post = get_object_or_404(UserPost, slug=slug)
+    
+    return render(request, "post_detail.html", {
+        "post": post,
+    })
 # I had some issues that I couldn't figure out with the classed based views, so I am leaving them alone for now. 
 
 # class NewPostView(CreateView, LoginRequiredMixin):
