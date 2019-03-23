@@ -1,16 +1,15 @@
 from django.urls import path
+# from django.conf.urls import url
 from . import views
 from core.views import UserPost
 
 
 urlpatterns = [
     path('', views.HomePageView.as_view(model=UserPost), name='index'),
-    path('profile/<slug:slug>', views.OtherUserProfileView.as_view(), name='view-profile'),
-
-    path('username/<slug:slug>', views.UserProfileView.as_view(), name='user-profile'),
-    
-    path('post/new/', views.NewPostView.as_view(), name='post_new'),
     path('welcome/', views.WelcomeView.as_view(), name='welcome'),
+    path('<slug:slug>/', views.view_profile, name='view_profile'),
+    path('profile/edit', views.edit_profile, name='edit_profile'),
     path('codeofconduct/', views.CCView.as_view(), name='codeofconduct'),
 
 ]
+

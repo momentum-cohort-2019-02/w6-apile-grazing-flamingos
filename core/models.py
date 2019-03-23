@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
+from django.urls import reverse
 from datetime import datetime
 
 # from PIL import Image
@@ -31,6 +32,9 @@ class User(AbstractUser):
         '''Hides slug field in admin- saves slug to use in url'''
         self.set_slug()
         super().save(*args, **kwargs)
+        
+    # def get_absolute_url(self):
+    #     return reverse('user-profile', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.username
