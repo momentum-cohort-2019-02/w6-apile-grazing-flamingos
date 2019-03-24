@@ -28,10 +28,16 @@ class CommentForm(ModelForm):
 #         fields = ['email', 'gender_pronouns', 'about',]
 
 class PostForm(ModelForm):
-    '''User post form based on our UserPost model. Ask'''
+    '''User post form based on our UserPost model.'''
     class Meta:
         model = UserPost
         fields = ['title', 'source_name', 'post_url', 'body', 'topic']
+
+class CommentForm(ModelForm):
+    
+    class Meta:
+        model = Comment
+        fields = ("comment",)
 
 # class EditUserProfile (ModelForm):
 #     '''Form that allows users to edit their profile'''
