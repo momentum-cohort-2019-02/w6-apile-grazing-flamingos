@@ -103,7 +103,10 @@ class Topic(models.Model):
         '''Hides slug field in admin- saves slug to use in url'''
         self.set_slug()
         super().save(*args, **kwargs)
-
+    
+    def get_absolute_url(self):
+        return reverse('topics', args=[str(self.slug)])
+    
     def __str__(self):
         return self.name
     

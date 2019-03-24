@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from django.views import generic
-from core.models import User, UserPost
+from core.models import User, UserPost, Topic, Comment, Vote
 # from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.views.generic.edit import CreateView, UpdateView
 from core.forms import PostForm, EditProfileForm
@@ -16,6 +16,7 @@ class HomePageView(generic.ListView):
     model = UserPost
     template_name = 'index.html'
     paginate_by = 20
+    num_comments = Comment.objects.filter()
 
     def get_queryset(self):
         """Return the last five published questions."""
@@ -65,7 +66,7 @@ def edit_profile(request):
 
 def post_detail_view(request, slug):
     post = get_object_or_404(UserPost, slug=slug)
-    
+    comments = Comment.objects.filter()
     return render(request, "post_detail.html", {
         "post": post,
     })
