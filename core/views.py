@@ -4,7 +4,7 @@ from django.views import generic
 from core.models import User, UserPost, Topic, Comment, Vote
 # from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.views.generic.edit import CreateView, UpdateView
-from core.forms import PostForm, EditProfileForm
+from core.forms import PostForm, EditProfileForm, CommentForm
 # from django.urls import reverse, reverse_lazy
 
 
@@ -71,8 +71,18 @@ def edit_profile(request):
 def post_detail_view(request, slug):
     post = get_object_or_404(UserPost, slug=slug)
     comments = Comment.objects.all()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            #### Not sure if the below statement works????
+            # comments.save()
+            return redirect(to='post.detail.html')
+
+    else:
+        form = CommentForm()
 
     return render(request, "post_detail.html", {
+        "form": form,
         "post": post,
         "comments": comments,
     })
