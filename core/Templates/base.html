@@ -26,7 +26,7 @@
                 <li><a class="white link hover-pink dib mr3" href="#0" title="New">New</a></li>
                 <li><a class="white link hover-pink dib mr3" href="#0" title="Comments">Comments</a></li>
                 {% if request.user.is_authenticated %}
-                {% comment %} <li><a class="white link hover-pink dib mr3" href="{% url 'post_new' %}">Post<a></li> {% endcomment %}
+                <li><a class="white link hover-pink dib mr3" href="{% url 'new_post' %}">Post<a></li>
                 <li><a class="white link hover-pink dib mr3" href="{% url 'edit_profile' %}" method="POST"
                         title="Profile page">{{ request.user.username }}</a>
                     <span class="white">|</span></li>

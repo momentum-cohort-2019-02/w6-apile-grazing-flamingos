@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from core.models import User, UserPost, Comment
+from core.models import User, UserPost, Comment, Topic, Vote
 from django.contrib.auth.forms import UserChangeForm
 # from django.contrib.auth.models import User
 
@@ -14,6 +14,12 @@ class EditProfileForm(UserChangeForm):
             'last_name',
             'password'
         )
+
+class CommentForm(ModelForm):
+    """Form for users to post comments in reply to posts"""
+    class Meta:
+        model = Comment
+        fields = ['comment',]
 
 # class UserForm(ModelForm):
 #     '''User profile form based on our User model. Asks for User input on specified fields'''
