@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from django.views import generic
-from core.models import User, UserPost
+from core.models import User, UserPost, Topic, Comment, Vote
 # from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.views.generic.edit import CreateView, UpdateView
-from core.forms import PostForm, EditProfileForm
+from core.forms import PostForm, EditProfileForm, CommentForm
 # from django.urls import reverse, reverse_lazy
 
 
@@ -16,14 +16,19 @@ class HomePageView(generic.ListView):
     model = UserPost
     template_name = 'index.html'
     paginate_by = 20
+    num_comments = Comment.objects.count()
+    comment = Comment.objects.all()
+    userpost = UserPost.objects.all()
 
     def get_queryset(self):
         """Return the last five published questions."""
         return UserPost.objects.all()
 
-class PostDetailView(generic.DetailView):
-    '''Generic detail view for a post'''
-    model = UserPost
+
+
+# class PostDetailView(generic.DetailView):
+#     '''Generic detail view for a post'''
+#     model = UserPost
 
 # class UserProfileView(generic.DetailView):
 #     '''Detail view for user's profiles'''
@@ -65,9 +70,21 @@ def edit_profile(request):
 
 def post_detail_view(request, slug):
     post = get_object_or_404(UserPost, slug=slug)
-    
+    comments = Comment.objects.all()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            #### Not sure if the below statement works????
+            # comments.save()
+            return redirect(to='post.detail.html')
+
+    else:
+        form = CommentForm()
+
     return render(request, "post_detail.html", {
+        "form": form,
         "post": post,
+        "comments": comments,
     })
 # I had some issues that I couldn't figure out with the classed based views, so I am leaving them alone for now. 
 

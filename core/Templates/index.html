@@ -4,14 +4,23 @@
 {% block content %}
 <ul>
     <div class="list pl0">
-        <li>Votes</li>
         {% for UserPost in object_list %}
         {% if UserPost %}
-        <li><a href="{{ UserPost.post_url }}">{{ UserPost.title }}</a></li>
-        <li> {{ user.profile_picture }} </li>
-        <li> by <a href="{{ UserPost.user }}">{{ UserPost.user }}</a></li>
-        <li><p>{{ UserPost.body|truncatewords:50 }}</p> </li>
-        <li class="mb2"><a href='{{ UserPost.get_absolute_url }}'>{{ comments.num_comments }} comments</a></li>
+        <span>Votes</span>
+        <span><a href="{{ UserPost.post_url }}">{{ UserPost.title }}</a></span>
+        <span> {{ user.profile_picture }} </span>
+        <span> by <a href="{{ UserPost.user }}">{{ UserPost.user }}</a></span>
+        {% if UserPost.body %}
+        <span><p>{{ UserPost.body|truncatewords:50 }}h</p> </span>
+
+        {% if UserPost.comments %}
+        <span class="mb2"><a href='{{ UserPost.get_absolute_url }}'>
+        {% endif %}
+
+        {{ num_comments }}j comments</a></span><br>
+        {% else %}
+        <span class="mb2"><a href ='{{ UserPost.get_absolute_url }}'>Add first comment</a></span><br>
+        {% endif %}
         {% endif %}
         {% if UserPost.source_name %}
         <li>({{ UserPost.source_name }})</li>
