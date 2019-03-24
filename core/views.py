@@ -16,15 +16,19 @@ class HomePageView(generic.ListView):
     model = UserPost
     template_name = 'index.html'
     paginate_by = 20
-    num_comments = Comment.objects.filter()
+    num_comments = Comment.objects.count()
+    comment = Comment.objects.all()
+    userpost = UserPost.objects.all()
 
     def get_queryset(self):
         """Return the last five published questions."""
         return UserPost.objects.all()
 
-class PostDetailView(generic.DetailView):
-    '''Generic detail view for a post'''
-    model = UserPost
+
+
+# class PostDetailView(generic.DetailView):
+#     '''Generic detail view for a post'''
+#     model = UserPost
 
 # class UserProfileView(generic.DetailView):
 #     '''Detail view for user's profiles'''
@@ -66,9 +70,11 @@ def edit_profile(request):
 
 def post_detail_view(request, slug):
     post = get_object_or_404(UserPost, slug=slug)
-    comments = Comment.objects.filter()
+    comments = Comment.objects.all()
+
     return render(request, "post_detail.html", {
         "post": post,
+        "comments": comments,
     })
 # I had some issues that I couldn't figure out with the classed based views, so I am leaving them alone for now. 
 

@@ -2,5 +2,14 @@
 {% load staticfiles %}
 
 {% block content %}
-    
+    {% comment %} {% for post in post %} {% endcomment %}
+        <section class="post-detail">
+            <div class ="post-date">
+                {{ post.time_posted }}
+            </div>
+            <span class="post-title">{{ post.title }}</span>
+            <span class="post-writer"> posted by {{ post.user }}</span>
+            
+            <p class="post-body">{{ post.body }}</p>
+    {% comment %} {% endfor %} {% endcomment %}
 {% endblock %}
