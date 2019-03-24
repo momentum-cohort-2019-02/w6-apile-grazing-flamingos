@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from core.models import User, UserPost
+from core.models import User, UserPost, Comment
 from django.contrib.auth.forms import UserChangeForm
 # from django.contrib.auth.models import User
 
@@ -26,6 +26,12 @@ class PostForm(ModelForm):
     class Meta:
         model = UserPost
         fields = ['title', 'source_name', 'post_url', 'body', 'topic']
+
+class CommentForm(ModelForm):
+    
+    class Meta:
+        model = Comment
+        fields = ("comment",)
 
 # class EditUserProfile (ModelForm):
 #     '''Form that allows users to edit their profile'''

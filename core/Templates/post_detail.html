@@ -2,5 +2,20 @@
 {% load staticfiles %}
 
 {% block content %}
-
-{% endblock %}
+<h2>Comments:</h2>
+{% if request.user.is_authenticated %}
+<form action="{% url 'post_vote' post.slug %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">
+        {% if post in request.user.votes.all %}
+        Unlike
+        {% else %}
+        Like
+        {% endif %}
+    </button>
+    <ul>
+        {% for vote in selected.choice_set.all %}
+        <li>{{ vote.votes }} vote{{ vote.votes|pluralize }}</li>
+        {% endfor %}
+    </ul>
+    {% endblock %}

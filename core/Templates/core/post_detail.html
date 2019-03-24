@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<h2>blahhhhhh</h2>
+{% if request.user.is_authenticated %}
+<form action="{% url 'post-vote' post.slug %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">
+        {% if post in request.user.votes.all %}
+        Unvote
+        {% else %}
+        Vote
+        {% endif %}
+    </button>
+</form>
+<div>
+    <ul>
+        <a href="{% url 'comment_new' post.slug %}">Comments:</a>
+
+        <h3>This page will contain the comment form.</h3>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+
+        {% for comment in comment_list %}
+            <li>
+                <p>{{ comment.content }}</p>
+                <p>{{ comment.user }}</p>
+                {% if request.user.is_authenticated %}
+                    {% if request.user == comment.user %}
+                    <button><a class="" href="{% url 'comment_remove' post.slug %}">Delete Comment</button>
+                    {% endif %}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endif %}{% endblock %}
