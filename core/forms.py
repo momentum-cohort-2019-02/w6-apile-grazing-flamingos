@@ -28,7 +28,7 @@ class CommentForm(ModelForm):
 #         fields = ['email', 'gender_pronouns', 'about',]
 
 class PostForm(ModelForm):
-    '''User post form based on our UserPost model. Ask'''
+    '''User post form based on our UserPost model.'''
     class Meta:
         model = UserPost
         fields = ['title', 'source_name', 'post_url', 'body', 'topic']

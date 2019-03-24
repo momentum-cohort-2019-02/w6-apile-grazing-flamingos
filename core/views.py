@@ -113,6 +113,12 @@ def post_detail_view(request, slug):
 
     return render(request, 'post_detail.html', context=context)
 
+@login_required
+def remove_post(request, slug):
+    post = get_object_or_404(UserPost, slug=slug)
+    post.delete()
+    return redirect('index') 
+
 # This needs to be adjusted because posting the comment returns this error: "Direct assignment to the reverse side of a related set is prohibited. Use post.set() instead." It is because the
 @login_required
 def new_comment(request, slug):
@@ -122,19 +128,13 @@ def new_comment(request, slug):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = request.user
-            comment.post = UserPost.objects.get(slug=slug)
+            comment.post = UserPost.objects.comments.set(slug=slug)
             comment.save()
             return redirect('post_detail', slug=slug)
     else:
 
         form = CommentForm()
-    return render(request, 'add_comment.html', {'form': form})
-
-@login_required
-def remove_post(request, slug):
-    post = get_object_or_404(UserPost, slug=slug)
-    post.delete()
-    return redirect('index')  
+    return render(request, 'add_comment.html', {'form': form}) 
 
 # @login_required
 # def comment_remove(request, slug):

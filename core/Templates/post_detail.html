@@ -2,15 +2,13 @@
 {% load staticfiles %}
 
 {% block content %}
-<section class="post-detail">
-    <div class="post-date">
-        {{ post.time_posted }}
-    </div>
-    <span class="post-title"><a href='{{ post.post_url }}'>{{ post.title }}</a></span>
-    <span class="post-writer"> posted by {{ post.user }}</span>
+<section>
+    <span><a href='{{ post.post_url }}'>{{ post.title }}</a></span>
+    <span> posted by {{ post.user }}</span> on  <span>{{ post.time_posted }}</span>
+    <p>{{ post.body }}</p>
+    <p>{{ post.comments }} </p>
 
-    <p class="post-body">{{ post.body }}</p>
-    <form method="POST" class="comment-form">
+    <form method="POST">
         {% csrf_token %}
         {% for field in form %}
         <div class="{% if field.field.required %}b{% endif%}">{{ field.label_tag }}</div>
@@ -20,8 +18,10 @@
         {% endif %}
         </div>
         {% endfor %}
-        <button class="f6 link dim ba bw2 ph3 pv2 mb2 dib b--pink pink f6 fw6 tracked" type="submit"> <a class="f6 link pink f6 fw6 tracked" href="{% url 'new_comment' post.slug %}">Post Comment</a></button>
+        
+    <button class="f6 link dim ba bw2 ph3 pv2 mb2 dib b--pink pink f6 fw6 tracked" type="submit"> <a class="f6 link pink f6 fw6 tracked" href="{% url 'new_comment' post.slug %}">Post Comment</a></button>
     </form>
+
     {% if request.user.is_authenticated %}
     <form action="{% url 'post_vote' slug=post.slug %}" method="POST">
         {% csrf_token %}
@@ -38,6 +38,7 @@
     <div class="f6 fw6 tracked">
         Total likes: {{ user.voted_set.count }} 
         {% comment %} {{ vote.vote.count|pluralize: "like, likes" }} {% endcomment %}
+
     {% if request.user.is_authenticated %}
         {% if request.user == post.user %}
         <button><a class="f6 link dim ba bw2 ph3 pv2 mb2 dib b--pink pink f6 fw6 tracked" href="{% url 'remove_post' post.slug %}" type="submit">Delete Post</a></button>
