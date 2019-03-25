@@ -5,10 +5,15 @@
 <section class="ph5">
     <span><a href='{{ post.post_url }}'>{{ post.title }}</a></span>
     <span> posted by {{ post.user }}</span> on  <span>{{ post.time_posted }}</span>
+    {% if post.body %}
     <p>{{ post.body }}</p>
+    {% endif %}
     <h4>Comments</h4>
-    <p>{{ post.comments }}</p>
-
+    <ul>
+    {% for comment in comments %}
+        <li>{{ comment }}</li>
+    {% endfor %}
+    </ul>
 
     <form method="POST">
         {% csrf_token %}

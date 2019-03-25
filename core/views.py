@@ -106,9 +106,11 @@ def new_post(request):
 def post_detail_view(request, slug):
     post = get_object_or_404(UserPost, slug=slug)
     comments = Comment.objects.all()
+    post_comments = Comment.objects.filter(post__exact=post)
     context = { 
         'post': post,
         'comments': comments,
+        'post_comments': post_comments,
     }
 
     return render(request, 'post_detail.html', context=context)
@@ -129,7 +131,8 @@ def new_comment(request, slug):
             comment = form.save(commit=False)
             comment.user = request.user
             comment.save()
-            comment.post.add(post)
+            # Django Tutorial https://tutorial.djangogirls.org/en/django_templates/
+            post.comments.add(comment)
             return redirect('post_detail', slug=slug)
     else:
 
