@@ -61,8 +61,6 @@ def get_apile_csv(apps, schema_editor):
             userpost.topic.add(topic)
             user.userpost_set.add(userpost)
             topic.posts.add(userpost)
-            vote.post.add(userpost)
-
 
 class Migration(migrations.Migration):
 
