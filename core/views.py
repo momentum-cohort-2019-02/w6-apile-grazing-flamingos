@@ -132,7 +132,6 @@ def new_comment(request, slug):
             comment.save()
             return redirect('post_detail', slug=slug)
     else:
-
         form = CommentForm()
     return render(request, 'add_comment.html', {'form': form}) 
 
@@ -143,20 +142,33 @@ def new_comment(request, slug):
 #     return redirect('post_detail', slug)  
 
 # the votes are not displaying on the detail page and the redirection gets a value error
-@require_http_methods(['POST'])
-@login_required
-def vote(request, slug):
-    vote = get_object_or_404(UserPost, slug)
+# @require_http_methods(['POST'])
+# @login_required
+# def vote(request, slug):
+#     vote = get_object_or_404(UserPost, slug)
     
-    vote, created = request.user.voted_set.get_or_create(vote=vote)
+#     vote, created = request.user.votes.get_or_create(vote=vote)
 
-    if created:
-        messages.success(request, f"You liked {vote.title}.")
-    else:
-        messages.info(request, f"You unliked for {vote.title}.")
-        vote.delete()
+#     if created:
+#         messages.success(request, f"You liked {vote.title}.")
+#     else:
+#         messages.info(request, f"You unliked for {vote.title}.")
+#         vote.delete()
 
-    return redirect(to='post_vote.html')
+#     return redirect(to='post_detail.html')
+
+@require_http_methods(['POST'])
+def vote(request, slug):
+    question = get_object_or_404(UserPost, slug)
+    selected_choice = question.choice_set.get(pk=request.POST['choice'])
+
+    if selected_choice:
+        selected_choice.votes += 1
+        selected_choice.save()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.
+        return redirect('post_detail.html')
 
 # I had some issues that I couldn't figure out with the classed based views, so I am leaving them alone for now. 
 

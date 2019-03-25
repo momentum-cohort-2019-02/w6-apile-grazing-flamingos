@@ -3,7 +3,7 @@
 
 {% block content %}
 <ul>
-    <div class="list pl0">
+    <div class="bg-light-gray list pl0">
         {% for UserPost in object_list %}
             {% if UserPost %}
                 <span><a href="{{ UserPost.post_url }}">{{ UserPost.title }}</a></span>
@@ -14,20 +14,16 @@
                 <span><p>{{ UserPost.body|truncatewords:50 }}h</p> </span>
             {% endif %}
             {% if UserPost.comments %}
-                <span class="mb2"><a href='{{ UserPost.get_absolute_url }}'>{{ post.comment.post.count }} comments</a></span><br>
+                <span class="mb2"><a href="{{ UserPost.get_absolute_url }}">{{ post.comment.post.count }} comments</a></span><br>
             {% else %}
-                <span class="mb2"><a href ='{{ UserPost.get_absolute_url }}'>Add first comment</a></span><br>
+                <span class="mb2"><a href ="{{ UserPost.get_absolute_url }}">Add first comment</a></span><br>
             {% endif %}
             {% if UserPost.source_name %}
                 <span>({{ UserPost.source_name }})</span>
             {% endif %}
-            {% if request.user.is_authenticated %}
-                {% if request.user == post.user %}
-                    <button><a class="f6 link dim ba bw2 ph3 pv2 mb2 dib b--pink pink f6 fw6 tracked" href="{% url 'remove_post' post.slug %}">Delete Post</a></button>
-                {% endif %}
-            {% endif %}
         {% endfor %}
     </div>
+
     
 
     {% block pagination %}

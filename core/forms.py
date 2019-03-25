@@ -34,7 +34,6 @@ class PostForm(ModelForm):
         fields = ['title', 'source_name', 'post_url', 'body', 'topic']
 
 class CommentForm(ModelForm):
-    
     class Meta:
         model = Comment
         fields = ("comment",)
