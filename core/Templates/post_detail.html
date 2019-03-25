@@ -2,11 +2,13 @@
 {% load staticfiles %}
 
 {% block content %}
-<section>
+<section class="ph5">
     <span><a href='{{ post.post_url }}'>{{ post.title }}</a></span>
     <span> posted by {{ post.user }}</span> on  <span>{{ post.time_posted }}</span>
     <p>{{ post.body }}</p>
-    <p>{{ post.comments }} </p>
+    <h4>Comments</h4>
+    <p>{{ post.comments }}</p>
+
 
     <form method="POST">
         {% csrf_token %}
@@ -47,5 +49,5 @@
 
     </div>
     {% endif %}
-
-    {% endblock %}
+</section>
+{% endblock %}

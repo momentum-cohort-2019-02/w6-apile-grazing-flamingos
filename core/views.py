@@ -122,14 +122,14 @@ def remove_post(request, slug):
 # This needs to be adjusted because posting the comment returns this error: "Direct assignment to the reverse side of a related set is prohibited. Use post.set() instead." It is because the
 @login_required
 def new_comment(request, slug):
-    
+    post = get_object_or_404(UserPost, slug=slug)
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = request.user
-            comment.post = UserPost.objects.comments.set(slug=slug)
             comment.save()
+            comment.post.add(post)
             return redirect('post_detail', slug=slug)
     else:
 
