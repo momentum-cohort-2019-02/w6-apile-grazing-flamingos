@@ -51,7 +51,8 @@ class UserPost(models.Model):
     topic = models.ManyToManyField(to='Topic', related_name='posts')
     slug = models.SlugField()
     votes = models.ForeignKey(to='Vote', null=True, blank=True, on_delete = models.SET_NULL, related_name='postvotes')
-    comments = models.ForeignKey(to='Comment', null=True, blank=True, on_delete = models.SET_NULL, related_name='post')
+    # oops set up comments wrong, they need to be defined as foreign key in Comment model
+    # comments = models.ForeignKey(to='Comment', null=True, blank=True, on_delete = models.SET_NULL, related_name='post')
 
     # Can we sort via a ForeginKeyField?
     class Meta:
@@ -86,6 +87,7 @@ class UserPost(models.Model):
     
 class Comment(models.Model):
     comment = models.TextField(verbose_name='kind words', editable=True, max_length=1200, null=True, blank=True)
+    post = models.ForeignKey(to='UserPost', null=True, blank=True, on_delete = models.SET_NULL, related_name='comments')
 
     def __str__(self):
         return self.comment  

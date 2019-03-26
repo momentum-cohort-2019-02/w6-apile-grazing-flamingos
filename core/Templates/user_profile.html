@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block content %} 
+<section class="ph5">
   <ul class="list pl0">
     {% for user in user %}
       <li>profile picture: {{ uploaded_profile_picture }}</li>
@@ -20,4 +21,5 @@
   </ul>
 
 <p><a href="{% url 'index' %}">Return to home</a></p>
+<section class="ph5">
 {% endblock %}

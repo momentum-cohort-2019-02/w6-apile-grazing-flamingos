@@ -11,7 +11,7 @@
     {% block meta %}{% endblock %}
 </head>
 
-<body>
+<body class="avenir outline">
     {% comment %} fixed needs to be added to class once we add content {% endcomment %}
     <header class="parent bg-light-green w-100 ph3 ph4-m ph5-l bb b--pink bw1 mb3">
         <nav class="f6 fw6 tracked">
@@ -19,7 +19,7 @@
                 {% comment %} <li><img src="{% static " logo.png" %}" alt="An artistic rendering of a flamingo."></li>
                 {% endcomment %}
                 <li><a href="{% url 'index' %}" title="Home">
-                        <h1 class="mb0 pink dib w-15 mr3 link hover-white">thegrazingflamingo</h1>
+                        <h1 class="courier mb0 pink dib w-15 mr3 link hover-white">thegrazingflamingo</h1>
                     </a></li>
                 <li><a class="white link hover-pink dib mr3" href="{% url 'welcome' %}" title="Welcome">Welcome</a></li>
                 <li><a class="white link hover-pink dib mr3" href="#0" title="Topics">Topics</a></li>

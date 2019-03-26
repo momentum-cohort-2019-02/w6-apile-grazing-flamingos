@@ -3,9 +3,11 @@
 
 {% block content %}
 <ul>
-    <div class="list pl0">
+    <div class="p10 pv2">
+        <ul class ="list">
         {% for UserPost in object_list %}
             {% if UserPost %}
+            <li class="pv1">
                 <span><a href="{{ UserPost.post_url }}">{{ UserPost.title }}</a></span>
                 <span> {{ user.profile_picture }} </span>
                 <span> by <a href="{{ UserPost.user }}">{{ UserPost.user }}</a></span>
@@ -25,8 +27,10 @@
                 {% if request.user == post.user %}
                     <button><a class="f6 link dim ba bw2 ph3 pv2 mb2 dib b--pink pink f6 fw6 tracked" href="{% url 'remove_post' post.slug %}">Delete Post</a></button>
                 {% endif %}
+                </li>
             {% endif %}
         {% endfor %}
+        </ul>
     </div>
     
 
