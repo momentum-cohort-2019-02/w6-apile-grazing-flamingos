@@ -9,9 +9,12 @@
     <p>{{ post.body }}</p>
     {% endif %}
     <h4>Comments</h4>
-    <ul>
+    <ul class ="list ph2">
     {% for comment in post.comments.all %}
-        <li>{{ comment }}</li>
+        <div class="pv2">
+        <li class="i">"{{ comment }}"</li>
+        <li class="bb b--pink"> --{{ user.commented }}</li>
+        </div>
     {% endfor %}
     </ul>
 

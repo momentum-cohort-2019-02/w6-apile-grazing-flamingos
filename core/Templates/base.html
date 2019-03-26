@@ -11,7 +11,7 @@
     {% block meta %}{% endblock %}
 </head>
 
-<body class="avenir outline">
+<body class="avenir outline vh-100">
     {% comment %} fixed needs to be added to class once we add content {% endcomment %}
     <header class="parent bg-light-green w-100 ph3 ph4-m ph5-l bb b--pink bw1 mb3">
         <nav class="f6 fw6 tracked">
@@ -27,12 +27,11 @@
                 <li><a class="white link hover-pink dib mr3" href="#0" title="Comments">Comments</a></li>
                 {% if request.user.is_authenticated %}
                 <li><a class="white link hover-pink dib mr3" href="{% url 'new_post' %}">Post<a></li>
-                <li><a class="white link hover-pink dib mr3" href="{% url 'edit_profile' %}" method="POST"
-                        title="Profile page">{{ request.user.username }}</a>
-                    <span class="white">|</span></li>
-                <li><a class="white link hover-pink dib mr3" href="{% url 'auth_logout' %}">Logout</a></li>
+                <li><a class="pink link hover-white dib mr3" href="{% url 'edit_profile' %}" method="POST"
+                        title="Profile page">{{ request.user.username }}</a></li>
+                <li><a class="pink link hover-white dib mr3" href="{% url 'auth_logout' %}">Logout</a></li>
                 {% else %}
-                <li><a class="white link hover-pink dib" href="{% url 'auth_login' %}">Register | Login</a></li>
+                <li><a class="pink link hover-white dib" href="{% url 'auth_login' %}">Register | Login</a></li>
                 {% endif %}
             </ul>
         </nav>
